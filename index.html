@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRIFT&amp;DRAWN — Posters, Cars &amp; Lifestyle</title>
+  <meta name="description" content="DRIFT&amp;DRAWN — premium automotive posters and lifestyle products.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="topbar"><span>FREE SHIPPING ON ORDERS ABOVE ₹999</span><span>•</span><span>PREMIUM PRINTS</span><span>•</span><span>BUILT FOR CAR LOVERS</span></div>
+
+  <header class="header">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="DRIFT&DRAWN logo">
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="#categories">Categories</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="Search">⌕</button>
+      <a class="cart-btn" href="cart.html">Cart <span id="cartCount">0</span></a>
+    </div>
+  </header>
+
+  <div class="search-panel" id="searchPanel">
+    <input id="searchInput" type="search" placeholder="Search BMW, JDM, supercars, posters...">
+    <a href="shop.html" class="btn btn-red">Browse products</a>
+  </div>
+
+  <main>
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="assets/hero-loop.mp4" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-site-name">DRIFT&amp;DRAWN</div>
+      <div class="hero-content">
+        <p class="eyebrow">AUTOMOTIVE • CULTURE • LIFESTYLE</p>
+        <h1>YOUR WALL.<br><span>YOUR DREAM MACHINE.</span></h1>
+        <p class="hero-copy">Premium automotive artwork for people who don't see cars as just cars.</p>
+        <div class="hero-buttons">
+          <a href="shop.html" class="btn btn-red">Shop posters</a>
+          <a href="#categories" class="btn btn-ghost">Explore collection</a>
+        </div>
+      </div>
+      <div class="hero-scroll">SCROLL TO EXPLORE ↓</div>
+    </section>
+
+    <section class="ticker">
+      <div>DRIFT&amp;DRAWN</div><div>BMW</div><div>PORSCHE</div><div>JDM</div><div>SUPERCARS</div><div>FORMULA 1</div><div>DRIFT&amp;DRAWN</div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">SHOP BY VIBE</p>
+          <h2>Find your <span>garage.</span></h2>
+        </div>
+        <a href="shop.html" class="text-link">View all →</a>
+      </div>
+      <div class="category-grid">
+        <a class="category-card cat-bmw" href="shop.html?category=BMW"><img class="category-art" src="assets/bmw.png" alt="BMW artwork" onerror="this.hidden=true"><span>01</span><strong>BMW</strong><small>Precision & attitude</small></a>
+        <a class="category-card cat-jdm" href="shop.html?category=JDM"><img class="category-art" src="assets/jdm.png" alt="JDM artwork" onerror="this.hidden=true"><span>02</span><strong>JDM</strong><small>Built, not bought</small></a>
+        <a class="category-card cat-super" href="shop.html?category=Supercars"><img class="category-art" src="assets/supercars.png" alt="Supercars artwork" onerror="this.hidden=true"><span>03</span><strong>SUPERCARS</strong><small>Dream garage energy</small></a>
+      </div>
+    </section>
+
+    <section class="section dark-section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">TRENDING NOW</p>
+          <h2>Built for the <span>wall.</span></h2>
+        </div>
+        <a href="shop.html" class="text-link">Shop all →</a>
+      </div>
+      <div class="product-grid" id="featuredProducts"></div>
+    </section>
+
+    <section class="promo">
+      <div>
+        <p class="eyebrow">THE DRIFT&amp;DRAWN DROP</p>
+        <h2>Make your room<br><span>look faster.</span></h2>
+        <p>Limited-style automotive artwork, designed for clean walls and loud personalities.</p>
+        <a href="shop.html" class="btn btn-red">Explore the drop</a>
+      </div>
+      <div class="promo-mark">D&amp;D<br><small>01</small></div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="about-grid">
+        <div>
+          <p class="eyebrow">WHY DRIFT&amp;DRAWN</p>
+          <h2>Not just posters.<br><span>It's the culture.</span></h2>
+        </div>
+        <div class="about-copy">
+          <p>DRIFT&amp;DRAWN is built around automotive obsession — from clean German lines to raw JDM legends and racing icons.</p>
+          <div class="feature-list">
+            <div><b>01</b><span>Premium-looking artwork</span></div>
+            <div><b>02</b><span>Multiple sizes & collections</span></div>
+            <div><b>03</b><span>Secure, simple checkout flow</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-brand"><img src="assets/logo.png" alt="DRIFT&amp;DRAWN"></div>
+    <div class="footer-cols">
+      <div><h4>SHOP</h4><a href="shop.html">All Posters</a><a href="shop.html?category=BMW">BMW</a><a href="shop.html?category=JDM">JDM</a><a href="shop.html?category=Supercars">Supercars</a></div>
+      <div><h4>HELP</h4><a href="#">Shipping</a><a href="#">Returns</a><a href="#">FAQ</a><a href="#">Contact</a></div>
+      <div><h4>FOLLOW</h4><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">Pinterest</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DRIFT&amp;DRAWN</span><span>POSTERS • CARS • LIFESTYLE</span></div>
+  </footer>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

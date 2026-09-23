@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — DRIFT&amp;DRAWN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="header"><a class="brand" href="index.html"><img src="assets/logo.png"></a><div class="checkout-secure">SECURE CHECKOUT</div></header>
+<main class="checkout-page">
+  <div class="checkout-form">
+    <p class="eyebrow">DRIFT&amp;DRAWN CHECKOUT</p><h1>Complete your <span>order.</span></h1>
+    <form onsubmit="placeOrder(event)">
+      <label>Full name<input required name="name" placeholder="Your name"></label>
+      <label>Phone number<input required name="phone" placeholder="+91"></label>
+      <label>Address<textarea required name="address" placeholder="House / street / area"></textarea></label>
+      <div class="two-col"><label>City<input required name="city"></label><label>PIN code<input required name="pin"></label></div>
+      <label>Payment method<select name="payment"><option>UPI / Online payment</option><option>Cash on Delivery</option></select></label>
+      <button class="btn btn-red full" type="submit">Place order</button>
+    </form>
+  </div>
+  <div class="checkout-summary" id="checkoutSummary"></div>
+</main>
+<script src="js/products.js"></script><script src="js/app.js"></script>
+</body>
+</html>
