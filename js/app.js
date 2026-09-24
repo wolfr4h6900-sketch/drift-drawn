@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded",()=>{
+  setupPageOpening();
+  setupHeaderMotion();
   updateCartCount();
   const searchBtn=document.getElementById("searchBtn"), searchPanel=document.getElementById("searchPanel");
   if(searchBtn) searchBtn.onclick=()=>searchPanel.classList.toggle("show");
@@ -9,11 +11,73 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(document.getElementById("productPage")) renderProductPage();
   if(document.getElementById("cartContent")) renderCart();
   if(document.getElementById("checkoutSummary")) renderCheckout();
+  setupScrollReveal();
 });
+function setupPageOpening(){
+  const opening=document.createElement("div");
+  opening.className="page-opening";
+  opening.innerHTML='<div class="opening-kicker">AUTOMOTIVE • CULTURE • LIFESTYLE</div><div class="opening-title">DRIFT<span>&amp;</span>DRAWN</div><div class="opening-line"><i></i></div>';
+  document.body.prepend(opening);
+  window.setTimeout(()=>opening.classList.add("opening-done"),650);
+  window.setTimeout(()=>opening.remove(),1250);
+}
+function setupHeaderMotion(){
+  const headers=document.querySelectorAll(".header");
+  if(!headers.length)return;
+  requestAnimationFrame(()=>headers.forEach(header=>header.classList.add("header-ready")));
+  let ticking=false;
+  const update=()=>{
+    const scrolled=window.scrollY>24;
+    headers.forEach(header=>header.classList.toggle("header-scrolled",scrolled));
+    ticking=false;
+  };
+  window.addEventListener("scroll",()=>{
+    if(!ticking){requestAnimationFrame(update);ticking=true}
+  },{passive:true});
+  update();
+}
+function setupScrollReveal(){
+  const targets=document.querySelectorAll(".section-head,.section-head h2,.category-card,.promo,.about-grid,.shop-title,.shop-toolbar,.product-layout,.cart-items,.cart-summary,.checkout-form,.checkout-summary,footer");
+  if(!targets.length)return;
+  targets.forEach(el=>el.classList.add("reveal-on-scroll"));
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window)){targets.forEach(el=>el.classList.add("is-visible"));return}
+  const observer=new IntersectionObserver((entries,instance)=>{
+    entries.forEach(entry=>{
+      entry.target.classList.toggle("is-visible",entry.isIntersecting);
+    });
+  },{threshold:.12,rootMargin:"0px 0px -45px"});
+  targets.forEach(el=>observer.observe(el));
+}
+function setupGyroPanel(){
+  const panel=document.getElementById("categories");
+  if(!panel)return;
+  panel.classList.add("gyro-panel");
+  let currentX=0,currentY=0,targetX=0,targetY=0,frame=0;
+  const setTarget=(x,y)=>{targetX=Math.max(-4,Math.min(4,x));targetY=Math.max(-4,Math.min(4,y));panel.classList.add("gyro-active");if(!frame)frame=requestAnimationFrame(animate)};
+  const animate=()=>{currentX+=(targetX-currentX)*.12;currentY+=(targetY-currentY)*.12;panel.style.setProperty("--gyro-x",`${currentX}deg`);panel.style.setProperty("--gyro-y",`${currentY}deg`);if(Math.abs(targetX-currentX)>.01||Math.abs(targetY-currentY)>.01)frame=requestAnimationFrame(animate);else frame=0};
+  const handleOrientation=event=>setTarget((event.beta-45)*-.045,event.gamma*.055);
+  const enableOrientation=()=>{
+    if(typeof DeviceOrientationEvent==="undefined")return;
+    if(typeof DeviceOrientationEvent.requestPermission==="function")DeviceOrientationEvent.requestPermission().then(result=>{if(result==="granted")window.addEventListener("deviceorientation",handleOrientation,{passive:true})}).catch(()=>{});
+    else window.addEventListener("deviceorientation",handleOrientation,{passive:true});
+  };
+  window.addEventListener("pointermove",event=>{if(event.pointerType!=="touch")setTarget((event.clientY/window.innerHeight-.5)*-3,(event.clientX/window.innerWidth-.5)*3)},{passive:true});
+  window.addEventListener("pointerleave",()=>setTarget(0,0),{passive:true});
+  window.addEventListener("touchstart",enableOrientation,{once:true,passive:true});
+  enableOrientation();
+}
 function getCart(){return JSON.parse(localStorage.getItem("gearvault_cart")||"[]")}
 function saveCart(c){localStorage.setItem("gearvault_cart",JSON.stringify(c));updateCartCount()}
 function updateCartCount(){const el=document.getElementById("cartCount");if(el){el.textContent=getCart().reduce((s,x)=>s+x.qty,0)}}
-function addToCart(id,qty=1){const c=getCart(),i=c.findIndex(x=>x.id===id);if(i>-1)c[i].qty+=qty;else c.push({id,qty});saveCart(c);alert("Added to cart.")}
+function addToCart(id,qty=1){const c=getCart(),i=c.findIndex(x=>x.id===id);if(i>-1)c[i].qty+=qty;else c.push({id,qty});saveCart(c);showCartCelebration()}
+function showCartCelebration(){
+  document.querySelector(".cart-celebration")?.remove();
+  const celebration=document.createElement("div");
+  celebration.className="cart-celebration";
+  celebration.innerHTML='<div class="celebration-burst"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><strong>ADDED TO GARAGE</strong><span>Your poster is ready to roll.</span>';
+  document.body.append(celebration);
+  window.setTimeout(()=>celebration.remove(),1800);
+}
 function removeFromCart(id){saveCart(getCart().filter(x=>x.id!==id));renderCart()}
 function changeQty(id,delta){const c=getCart(),x=c.find(i=>i.id===id);if(x){x.qty+=delta;if(x.qty<=0)return removeFromCart(id)}saveCart(c);renderCart()}
 function renderProducts(list,target){const el=document.getElementById(target);el.innerHTML=list.map(p=>`<article class="product-card"><a href="product.html?id=${p.id}"><div class="product-img"><img src="${p.image}" alt="${p.name}" loading="lazy"><span class="tag">${p.tag}</span></div><div class="product-info"><h3>${p.name}</h3><div class="product-meta"><div class="price">${money(p.price)} <span class="old">${money(p.oldPrice)}</span></div></div></div></a><button class="quick-add" onclick="addToCart(${p.id})">+</button></article>`).join("")}
