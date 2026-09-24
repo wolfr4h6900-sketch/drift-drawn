@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(document.getElementById("cartContent")) renderCart();
   if(document.getElementById("checkoutSummary")) renderCheckout();
   setupScrollReveal();
+  setupCategoryEffects();
 });
 function setupPageOpening(){
   const opening=document.createElement("div");
@@ -47,6 +48,14 @@ function setupScrollReveal(){
     });
   },{threshold:.12,rootMargin:"0px 0px -45px"});
   targets.forEach(el=>observer.observe(el));
+}
+function setupCategoryEffects(){
+  document.querySelectorAll(".category-card").forEach(card=>card.addEventListener("click",event=>{
+    if(event.metaKey||event.ctrlKey||event.shiftKey||event.button===1)return;
+    event.preventDefault();
+    card.classList.add("is-selected");
+    window.setTimeout(()=>{location.href=card.href},430);
+  }));
 }
 function setupGyroPanel(){
   const panel=document.getElementById("categories");
